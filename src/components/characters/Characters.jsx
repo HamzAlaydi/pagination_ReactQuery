@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useCallback, useState } from "react";
 import axios from "axios";
 import { useQuery } from "react-query";
 import Cards from "../cards/Cards";
@@ -15,12 +15,6 @@ const Characters = () => {
     return data;
   };
 
-  const handlePrevious = () => {
-    if (page > 1) {
-      setPage(page - 1);
-    }
-  };
-
   //useQuery
   const { data, status } = useQuery(["characters", page], fetchData);
   if (status === "loading") {
@@ -35,7 +29,10 @@ const Characters = () => {
       {data.data.results.map((character) => {
         return <Cards character={character} key={character.id} />;
       })}
-      <button onClick={handlePrevious} disabled={!(page > 1 ? true : false)}>
+      <button
+        onClick={(_) => setPage(page - 1)}
+        disabled={!(page > 1 ? true : false)}
+      >
         Prevues
       </button>
       <button onClick={(_) => setPage(page + 1)}>Next</button>
