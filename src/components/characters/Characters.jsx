@@ -35,7 +35,9 @@ const Characters = () => {
       {data.data.results.map((character) => {
         return <Cards character={character} key={character.id} />;
       })}
-      <button onClick={handlePrevious}>Prevues</button>
+      <button onClick={handlePrevious} disabled={!(page > 1 ? true : false)}>
+        Prevues
+      </button>
       <button onClick={(_) => setPage(page + 1)}>Next</button>
     </div>
   );
